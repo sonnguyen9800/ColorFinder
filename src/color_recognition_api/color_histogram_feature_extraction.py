@@ -6,13 +6,10 @@
 # --- Date           : 31st December 2017 - new year eve :)
 # ----------------------------------------------
 
-from PIL import Image
 import os
+
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import itemfreq
-from color_recognition_api import knn_classifier as knn_classifier
 
 
 def color_histogram_of_test_image(test_src_image):
