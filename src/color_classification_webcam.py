@@ -25,6 +25,13 @@ prediction = 'n.a.'
 PATH = './training.data'
 
 
+BOUNDERIES = {
+        "RED": ([17, 15, 100], [50, 56, 200]),
+        "BLUE": ([86, 31, 4], [220, 88, 50]),
+        "YELLOW": ([25, 146, 190], [62, 174, 250]),
+        "GRAY": ([103, 86, 65], [145, 133, 128])
+    }
+
 COLORS = {
         'RED': [255, 0, 0],
         'YELLOW': [255, 165, 0],
@@ -93,10 +100,13 @@ while True:
         3,
         200,
         )
+
+    cv2.imshow("original", frame)
     cv2.imshow('final', final)
 
     # color_histogram_feature_extraction.color_histogram_of_test_image(final)
     color_extracted = color_histogram_feature_extraction.getRGBvalues(rect_img)
+
     prediction = comparison(color_extracted, COLORS)
 
     # prediction = knn_classifier.main('training.data', 'test.data')
