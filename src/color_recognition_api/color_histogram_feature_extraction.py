@@ -5,7 +5,7 @@
 # --- Mail           : ahmetozlu93@gmail.com
 # --- Date           : 31st December 2017 - new year eve :)
 # ----------------------------------------------
-
+import matplotlib.pyplot as plt
 import os
 
 import cv2
@@ -93,8 +93,41 @@ def color_histogram_of_training_image(img_name):
         myfile.write(feature_data + ',' + data_source + '\n')
 
 
-def training():
+def getRGBvalues(test_src_image):
 
+    # load the image
+    image = test_src_image
+
+    chans = cv2.split(image)
+    colors = ('b', 'g', 'r')
+    features = []
+
+    feature_data = []
+
+
+    counter = 0
+    for (chan, color) in zip(chans, colors):
+        counter = counter + 1
+
+        hist = cv2.calcHist([chan], [0], None, [256], [0, 256])
+        features.extend(hist)
+
+        # find the peak pixel values for R, G, and B
+        elem = np.argmax(hist)
+
+        if counter == 1:
+            blue = str(elem)
+        elif counter == 2:
+            green = str(elem)
+        elif counter == 3:
+            red = str(elem)
+            feature_data.append(red)
+            feature_data.append(green)
+            feature_data.append(blue)
+
+    return feature_data
+
+def training():
     # red color training images
     for f in os.listdir('./training_dataset/red'):
         color_histogram_of_training_image('./training_dataset/red/' + f)
